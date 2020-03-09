@@ -12,10 +12,30 @@ aims to detect change as soon as it occurs online subject to false alarm
 rates.
 }
 \examples{
-library(magrittr)
+set.seed(2020)
 p <- 100
 thresh <- setNames(c(11.62, 179.48, 54.87), c('diag', 'off_d', 'off_s'))
 detector <- ChangepointDetector(dim=p, method='ocd', beta=1, thresh=thresh)
+old_mean <- rnorm(p); new_mean <- old_mean + c(rnorm(p/4), rep(0,3*p/4)) / sqrt(p/4)
+
+# using functional semantics native in R
+detector <- setStatus(detector, 'estimating')
+for (i in 1:10000){
+  x_new <- rnorm(p, mean=old_mean)
+  detector <- getData(detector, x_new)
+}
+print(detector)
+
+detector <- setStatus(detector, 'monitoring')
+for (i in 1:500){
+  x_new <- rnorm(p, old_mean * (i < 250) + new_mean * (i>=250))
+  detector <- getData(detector, x_new)
+}
+print(detector)
+
+# alternative way to write the above using the piping semantics
+library(magrittr)
+detector \%<>\% reset
 detector \%<>\% setStatus('estimating')
 for (i in 1:10000){
   x_new <- rnorm(p, mean=old_mean)
