@@ -31,5 +31,5 @@ It is preferred to use \code{\link{ChangepointDetector}} for
 construction.
 }
 \examples{
-detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200)
+detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200, lambda=sqrt(8)-2)
 }

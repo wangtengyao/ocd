@@ -13,6 +13,8 @@ MC_XS(dim, patience, p0, w, MC_reps)
 
 \item{p0}{Assumed fraction of nonzero coordinates of change.}
 
+\item{w}{Window size}
+
 \item{MC_reps}{number of Monte Carlo repetitions to use}
 }
 \value{

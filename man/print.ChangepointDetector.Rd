@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{object of the 'ChangepointDetector' class}
+
+\item{...}{other arguments used in \code{print}}
 }
 \description{
 Printing methods for the 'ChangepointDetector' class

@@ -158,7 +158,7 @@ MC_ocd <- function(dim, patience, beta, sparsity, MC_reps){
 
   # run MC_reps simulations for peak statistics of S_diag, S_{off,d} and S_{off,s}
   for (rep in 1:MC_reps){
-    A <- matrix(0, p, 1)
+    A <- matrix(0, dim, 1)
     tail <- matrix(0, dim, floor(log2(dim))*2+4)
 
     for (i in 1:patience){
@@ -172,7 +172,7 @@ MC_ocd <- function(dim, patience, beta, sparsity, MC_reps){
   # compute the MC thresholds from the peak statistics
   thresh_est <- function(v) quantile(sort(v), exp(-1))
   th_individual <- apply(peak_stat, 2, thresh_est)
-  th_multiplier <- thresh_est(apply(t(stats)/th_individual, 2, max))
+  th_multiplier <- thresh_est(apply(t(peak_stat)/th_individual, 2, max))
   th <- th_individual * th_multiplier
   names(th) <- colnames(peak_stat)
   return(th)
@@ -192,7 +192,7 @@ MC_Mei <- function(dim, patience, b, MC_reps){
 
   # run MC_reps simulations for peak statistics
   for (rep in 1:MC_reps){
-    R <- matrix(0, p, 2)
+    R <- matrix(0, dim, 2)
 
     for (i in 1:patience){
       x_new <- rnorm(dim)
@@ -205,7 +205,7 @@ MC_Mei <- function(dim, patience, b, MC_reps){
   # compute the MC thresholds from the peak statistics
   thresh_est <- function(v) quantile(sort(v), exp(-1))
   th_individual <- apply(peak_stat, 2, thresh_est)
-  th_multiplier <- thresh_est(apply(t(stats)/th_individual, 2, max))
+  th_multiplier <- thresh_est(apply(t(peak_stat)/th_individual, 2, max))
   th <- th_individual * th_multiplier
   names(th) <- colnames(peak_stat)
   return(th)
@@ -215,6 +215,7 @@ MC_Mei <- function(dim, patience, b, MC_reps){
 #' @param dim Data dimension
 #' @param patience Nominal patience of the procedure
 #' @param p0 Assumed fraction of nonzero coordinates of change.
+#' @param w Window size
 #' @param MC_reps number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
 #' @export
@@ -223,7 +224,7 @@ MC_XS <- function(dim, patience, p0, w, MC_reps){
 
   # run MC_reps simulations for peak statistics
   for (rep in 1:MC_reps){
-    X_recent <- CUSUM <- matrix(0, p, w)
+    X_recent <- CUSUM <- matrix(0, dim, w)
 
     for (i in 1:patience){
       x_new <- rnorm(dim)
@@ -242,6 +243,7 @@ MC_XS <- function(dim, patience, p0, w, MC_reps){
 #' @param dim Data dimension
 #' @param patience Nominal patience of the procedure
 #' @param p0 Assumed fraction of nonzero coordinates of change.
+#' @param w Window size
 #' @param lambda Tuning parameter for Chan (2017) mmethod
 #' @param MC_reps number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
@@ -251,7 +253,7 @@ MC_Chan <- function(dim, patience, p0, w, lambda, MC_reps){
 
   # run MC_reps simulations for peak statistics
   for (rep in 1:MC_reps){
-    X_recent <- CUSUM <- matrix(0, p, w)
+    X_recent <- CUSUM <- matrix(0, dim, w)
 
     for (i in 1:patience){
       x_new <- rnorm(dim)

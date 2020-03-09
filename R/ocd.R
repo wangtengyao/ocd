@@ -101,12 +101,12 @@
 #' @export
 ChangepointDetector <- function(dim, method=c('ocd', 'Mei', 'XS', 'Chan'),
                                 thresh, patience=10000, MC_reps=100,
-                                beta=1, sparsity='auto', b=beta/sqrt(p),
+                                beta=1, sparsity='auto', b=beta/sqrt(dim),
                                 p0=1/sqrt(dim), w=200, lambda=sqrt(8)-2){
   if (identical(thresh, 'MC')){
     thresh <- switch(method,
                      ocd = MC_ocd(dim, patience, beta, sparsity, MC_reps),
-                     Mei = MC_mei(dim, patience, b, MC_reps),
+                     Mei = MC_Mei(dim, patience, b, MC_reps),
                      XS = MC_XS(dim, patience, p0, w, MC_reps),
                      Chan = MC_Chan(dim, patience, p0, w, lambda, MC_reps))
   }
@@ -233,7 +233,7 @@ new_XS <- function(dim, thresh, p0, w){
 #' @details It is preferred to use \code{\link{ChangepointDetector}} for
 #' construction.
 #' @examples
-#' detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200)
+#' detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200, lambda=sqrt(8)-2)
 #' @export
 new_Chan <- function(dim, thresh, p0, w, lambda){
   X_recent <- matrix(0, dim, w)
@@ -349,6 +349,7 @@ reset.Mei <- function(detector){
 #' @export
 reset.XS <- function(detector){
   p <- data_dim(detector)
+  tmp <- param(detector); w <- tmp$w
   X_recent <- matrix(0, p, w)
   CUSUM <- matrix(0, p, w)
   stats <- 0
@@ -365,6 +366,7 @@ reset.XS <- function(detector){
 #' @export
 reset.Chan <- function(detector){
   p <- data_dim(detector)
+  tmp <- param(detector); w <- tmp$w
   X_recent <- matrix(0, p, w)
   CUSUM <- matrix(0, p, w)
   stats <- 0
@@ -527,6 +529,7 @@ getData.Chan <- function(detector, x_new){
 
 #' Printing methods for the 'ChangepointDetector' class
 #' @param x object of the 'ChangepointDetector' class
+#' @param ... other arguments used in \code{print}
 #' @export
 print.ChangepointDetector <- function(x, ...){
   detector <- x

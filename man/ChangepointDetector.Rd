@@ -6,7 +6,7 @@
 \usage{
 ChangepointDetector(dim, method = c("ocd", "Mei", "XS", "Chan"), thresh,
   patience = 10000, MC_reps = 100, beta = 1, sparsity = "auto",
-  b = beta/sqrt(p), p0 = 1/sqrt(dim), w = 200, lambda = sqrt(8) -
+  b = beta/sqrt(dim), p0 = 1/sqrt(dim), w = 200, lambda = sqrt(8) -
   2)
 }
 \arguments{

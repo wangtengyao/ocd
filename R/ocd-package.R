@@ -11,6 +11,9 @@
 #'
 #' @docType package
 #' @name ocd
+#' @import stats
+#' @import utils
+#' @import graphics
 #' @examples
 #' set.seed(2020)
 #' p <- 100
@@ -33,7 +36,7 @@
 #' }
 #' print(detector)
 #'
-#'\donotrun{
+#'\dontrun{
 #' # alternative way to write the above using the piping semantics
 #' library(magrittr)
 #' detector %<>% reset
@@ -51,5 +54,6 @@
 #' }
 #' detector %>% print
 #' }
+
 
 NULL

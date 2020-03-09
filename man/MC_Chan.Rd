@@ -13,6 +13,8 @@ MC_Chan(dim, patience, p0, w, lambda, MC_reps)
 
 \item{p0}{Assumed fraction of nonzero coordinates of change.}
 
+\item{w}{Window size}
+
 \item{lambda}{Tuning parameter for Chan (2017) mmethod}
 
 \item{MC_reps}{number of Monte Carlo repetitions to use}

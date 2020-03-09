@@ -33,7 +33,7 @@ for (i in 1:500){
 }
 print(detector)
 
-\\donotrun{
+\dontrun{
 # alternative way to write the above using the piping semantics
 library(magrittr)
 detector \%<>\% reset
