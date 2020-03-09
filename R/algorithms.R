@@ -16,6 +16,7 @@
 #' \item A: the updated A matrix
 #' \item tail: the updated tail matrix
 #' }
+#' @export
 ocd_update <- function(x_new, A, tail, beta, sparsity){
   p <- length(x_new)   # dimension of data
   a <- sqrt(2*log(p))  # hard threshold parameter
@@ -79,6 +80,7 @@ ocd_update <- function(x_new, A, tail, beta, sparsity){
 #' \item stat: a vector of 2 test statistics for the 'Mei' class.
 #' \item R: the updated R vector
 #' }
+#' @export
 Mei_update <- function(x_new, R, b){
   R <- R + b * cbind(x_new, -x_new) - b^2/2  # update tail loglik ratio stats
   R[R<=0] <- 0 # reset when loglik ratio stat dips below 0
@@ -103,6 +105,7 @@ Mei_update <- function(x_new, R, b){
 #' \item X_recent: the updated X_recent matrix
 #' \item CUSUM: the updated CUSUM matrix
 #' }
+#' @export
 Chan_update <- function(x_new, X_recent, CUSUM, p0, w, lambda){
   CUSUM <- CUSUM + x_new - X_recent # update tail partial sums of length 1..w
   X_recent <- cbind(x_new, X_recent[, -w, drop=F])
@@ -127,6 +130,7 @@ Chan_update <- function(x_new, X_recent, CUSUM, p0, w, lambda){
 #' \item X_recent: the updated X_recent matrix
 #' \item CUSUM: the updated CUSUM matrix
 #' }
+#' @export
 XS_update <- function(x_new, X_recent, CUSUM, p0, w){
   CUSUM <- CUSUM + x_new - X_recent # update tail partial sums of length 1..w
   X_recent <- cbind(x_new, X_recent[, -w, drop=F])
@@ -145,6 +149,7 @@ XS_update <- function(x_new, X_recent, CUSUM, p0, w){
 #' @param sparsity Sparsity parameter for the OCD method
 #' @param MC_reps Number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
+#' @export
 MC_ocd <- function(dim, patience, beta, sparsity, MC_reps){
   peak_stat <- matrix(0, MC_reps, 3)
   colnames(peak_stat) <- c('diag','off_d','off_s')
@@ -180,6 +185,7 @@ MC_ocd <- function(dim, patience, beta, sparsity, MC_reps){
 #' @param b lLwer bound on per-coordinate magnitude of change
 #' @param MC_reps Number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
+#' @export
 MC_Mei <- function(dim, patience, b, MC_reps){
   peak_stat <- matrix(0, MC_reps, 2)
   colnames(peak_stat) <- c('max','sum')
@@ -211,6 +217,7 @@ MC_Mei <- function(dim, patience, b, MC_reps){
 #' @param p0 Assumed fraction of nonzero coordinates of change.
 #' @param MC_reps number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
+#' @export
 MC_XS <- function(dim, patience, p0, w, MC_reps){
   peak_stat <- rep(-Inf, MC_reps)
 
@@ -238,6 +245,7 @@ MC_XS <- function(dim, patience, p0, w, MC_reps){
 #' @param lambda Tuning parameter for Chan (2017) mmethod
 #' @param MC_reps number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
+#' @export
 MC_Chan <- function(dim, patience, p0, w, lambda, MC_reps){
   peak_stat <- rep(-Inf, MC_reps)
 

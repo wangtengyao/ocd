@@ -99,6 +99,7 @@
 #' \item Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
 #' \item Chan, H. P. (2017) Optimal sequential detection in multi-stream data. \emph{Ann. Statist.}, \strong{45}, 2736--2763.
 #' }
+#' @export
 ChangepointDetector <- function(dim, method=c('ocd', 'Mei', 'XS', 'Chan'),
                                 thresh, patience=10000, MC_reps=100,
                                 beta=1, sparsity='auto', b=beta/sqrt(p),
@@ -135,6 +136,7 @@ ChangepointDetector <- function(dim, method=c('ocd', 'Mei', 'XS', 'Chan'),
 #' construction.
 #' @examples
 #' detector <- new_OCD(dim=100, thresh=c(11.6, 179.5, 54.9), beta=1, sparsity='auto')
+#' @export
 new_OCD <- function(dim, thresh, beta, sparsity){
   L <- floor(log2(dim))*2+4
   A <- matrix(0, dim, 1)
@@ -168,6 +170,7 @@ new_OCD <- function(dim, thresh, beta, sparsity){
 #' construction.
 #' @examples
 #' detector <- new_Mei(dim=100, thresh=c(8.6, 125.1), b=0.1)
+#' @export
 new_Mei <- function(dim, thresh, b){
   R <- matrix(0, dim, 2)
   stats <- setNames(c(0,0), c('max','sum'))
@@ -198,6 +201,7 @@ new_Mei <- function(dim, thresh, b){
 #' construction.
 #' @examples
 #' detector <- new_XS(dim=100, thresh=55.1, p0=0.1, w=200)
+#' @export
 new_XS <- function(dim, thresh, p0, w){
   X_recent <- matrix(0, dim, w)
   CUSUM <- matrix(0, dim, w)
@@ -231,6 +235,7 @@ new_XS <- function(dim, thresh, p0, w){
 #' construction.
 #' @examples
 #' detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200)
+#' @export
 new_Chan <- function(dim, thresh, p0, w, lambda){
   X_recent <- matrix(0, dim, w)
   CUSUM <- matrix(0, dim, w)
@@ -257,46 +262,59 @@ new_Chan <- function(dim, thresh, p0, w, lambda){
 #' @details Obtain various attributes of the class 'ChangepointDetector'
 #' @seealso \code{\link{ChangepointDetector}}
 #' @name accessor
+#' @export
 NULL
 
 #' @rdname accessor
+#' @export
 data_dim <- function(detector) attr(detector, 'data_dim')
 
 #' @rdname accessor
+#' @export
 ocdMethod <- function(detector) attr(detector, 'method')
 
 #' @rdname accessor
+#' @export
 nobs <- function(detector) attr(detector, 'nobs')
 
 #' @rdname accessor
+#' @export
 patience <- function(detector) attr(detector, 'patience')
 
 #' @rdname accessor
+#' @export
 param <- function(detector) attr(detector, 'param')
 
 #' @rdname accessor
+#' @export
 thresholds <- function(detector) attr(detector, 'thresholds')
 
 #' @rdname accessor
+#' @export
 baselineMean <- function(detector) attr(detector, 'baseline_mean')
 
 #' @rdname accessor
+#' @export
 tracked <- function(detector) attr(detector, 'tracked')
 
 #' @rdname accessor
+#' @export
 statistics <- function(detector) attr(detector, 'statistics')
 
 #' @rdname accessor
+#' @export
 status <- function(detector) attr(detector, 'status')
 
 
 #' Reset changepoint detector to initial state
 #' @param detector Object of class 'Changepoint Detector'
 #' @return Updated object \code{detector}
+#' @export
 reset <- function(detector) UseMethod('reset')
 
 
 #' @describeIn reset Reset object of subclass 'OCD'
+#' @export
 reset.OCD <- function(detector){
   p <- data_dim(detector)
   L <- floor(log2(p))*2+4
@@ -315,6 +333,7 @@ reset.OCD <- function(detector){
 }
 
 #' @describeIn reset Reset object of subclass 'Mei'
+#' @export
 reset.Mei <- function(detector){
   p <- data_dim(detector)
   R <- matrix(0, p, 2)
@@ -329,6 +348,7 @@ reset.Mei <- function(detector){
 }
 
 #' @describeIn reset Reset object of subclass 'XS'
+#' @export
 reset.XS <- function(detector){
   p <- data_dim(detector)
   X_recent <- matrix(0, p, w)
@@ -344,6 +364,7 @@ reset.XS <- function(detector){
 }
 
 #' @describeIn reset Reset object of subclass 'Chan'
+#' @export
 reset.Chan <- function(detector){
   p <- data_dim(detector)
   X_recent <- matrix(0, p, w)
@@ -364,6 +385,7 @@ reset.Chan <- function(detector){
 #' @param mean vector of pre-change mean, must be of the same dimension as
 #' specified in the data_dim attribute of \code{detector}.
 #' @return Updated object \code{detector}
+#' @export
 setBaselineMean <- function(detector, mean){
   attr(detector, 'baseline_mean') <- mean
   return(detector)
@@ -377,6 +399,7 @@ setBaselineMean <- function(detector, mean){
 #' @details If the status is set to 'estimating', new observations are used to
 #' update current estimate of pre-change mean. If the status is set to
 #' 'monitoring', new observations are used to check if mean change has occurred.
+#' @export
 setStatus <- function(detector, new_status){
   attr(detector, 'status') <- new_status
   if (new_status=='estimating'){
@@ -391,6 +414,7 @@ setStatus <- function(detector, new_status){
 #' @param detector Object of class 'Changepoint Detector'
 #' @return maximum of the ratio between the current test statistics and their
 #' respective thresholds.
+#' @export
 normalisedStatistics <- function(detector) {
   max(statistics(detector) / thresholds(detector))
 }
@@ -403,6 +427,7 @@ normalisedStatistics <- function(detector) {
 #' status of the detector is changed to record the time of change and a message
 #' is printed to the standard output declaring the change.
 #' @seealso \code{\link{normalisedStatistics}}, \code{\link{setStatus}},
+#' @export
 checkChange <- function(detector){
   if (normalisedStatistics(detector) >= 1){
     n <- nobs(detector)
@@ -425,10 +450,12 @@ checkChange <- function(detector){
 #' data point is used to detect if a mean change has occurred.
 #' @seealso \code{\link{setBaselineMean}} for updating the pre-change mean
 #' estimate, \code{\link{checkChange}} for checking for change.
+#' @export
 getData <- function(detector, x_new) UseMethod('getData')
 
 
 #' @describeIn getData Process a new data for subclass 'OCD'
+#' @export
 getData.OCD <- function(detector, x_new){
   attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
@@ -446,6 +473,7 @@ getData.OCD <- function(detector, x_new){
 }
 
 #' @describeIn getData Process a new data for subclass 'Mei'
+#' @export
 getData.Mei <- function(detector, x_new){
   attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
@@ -463,6 +491,7 @@ getData.Mei <- function(detector, x_new){
 }
 
 #' @describeIn getData Process a new data for subclass 'XS'
+#' @export
 getData.XS <- function(detector, x_new){
   attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
@@ -480,6 +509,7 @@ getData.XS <- function(detector, x_new){
 }
 
 #' @describeIn getData Process a new data for subclass 'Chan'
+#' @export
 getData.Chan <- function(detector, x_new){
   attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
@@ -499,6 +529,7 @@ getData.Chan <- function(detector, x_new){
 
 #' Printing methods for the 'ChangepointDetector' class
 #' @param x object of the 'ChangepointDetector' class
+#' @export
 print.ChangepointDetector <- function(x, ...){
   detector <- x
   cat('Online changepoint detector using method:', ocdMethod(detector), '\n\n')
