@@ -262,7 +262,6 @@ new_Chan <- function(dim, thresh, p0, w, lambda){
 #' @details Obtain various attributes of the class 'ChangepointDetector'
 #' @seealso \code{\link{ChangepointDetector}}
 #' @name accessor
-#' @export
 NULL
 
 #' @rdname accessor
