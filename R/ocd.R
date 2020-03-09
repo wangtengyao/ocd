@@ -1,5 +1,4 @@
 ##### constructors #####
-##### constructors #####
 #' Constructor for the ChangepointDetector S3 class
 #' @param dim Data dimension, all new data must be of this dimension
 #' @param method Four methods are implemented: \code{ocd}, \code{Mei}, \code{XS}
@@ -104,7 +103,7 @@ ChangepointDetector <- function(dim, method=c('ocd', 'Mei', 'XS', 'Chan'),
                                 thresh, patience=10000, MC_reps=100,
                                 beta=1, sparsity='auto', b=beta/sqrt(p),
                                 p0=1/sqrt(dim), w=200, lambda=sqrt(8)-2){
-  if (thresh=='MC'){
+  if (identical(thresh, 'MC')){
     thresh <- switch(method,
                      ocd = MC_ocd(dim, patience, beta, sparsity, MC_reps),
                      Mei = MC_mei(dim, patience, b, MC_reps),

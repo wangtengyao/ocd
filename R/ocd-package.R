@@ -15,7 +15,7 @@
 #' library(magrittr)
 #' p <- 100
 #' thresh <- setNames(c(11.62, 179.48, 54.87), c('diag', 'off_d', 'off_s'))
-#' detector <- new_OCD(p=p, beta=1, thresh=thresh, sparsity='auto')
+#' detector <- ChangepointDetector(dim=p, method='ocd', beta=1, thresh=thresh)
 #' detector %<>% setStatus('estimating')
 #' for (i in 1:10000){
 #'   x_new <- rnorm(p, mean=old_mean)
