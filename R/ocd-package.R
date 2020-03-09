@@ -33,6 +33,7 @@
 #' }
 #' print(detector)
 #'
+#'\donotrun{
 #' # alternative way to write the above using the piping semantics
 #' library(magrittr)
 #' detector %<>% reset
@@ -49,5 +50,6 @@
 #'   detector %<>% getData(x_new)
 #' }
 #' detector %>% print
+#' }
 
 NULL

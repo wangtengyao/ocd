@@ -33,6 +33,7 @@ for (i in 1:500){
 }
 print(detector)
 
+\\donotrun{
 # alternative way to write the above using the piping semantics
 library(magrittr)
 detector \%<>\% reset
@@ -49,6 +50,7 @@ for (i in 1:500){
   detector \%<>\% getData(x_new)
 }
 detector \%>\% print
+}
 }
 \references{
 Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional
