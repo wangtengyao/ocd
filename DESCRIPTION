@@ -1,11 +1,11 @@
 Package: ocd
 Type: Package
-Title: High-dimensional Multiscale Online Changepoint Detection
+Title: High-Dimensional Multiscale Online Changepoint Detection
 Version: 1.0
 Date: 2020-03-06
 Author: Yudong Chen, Tengyao Wang, Richard J. Samworth
 Maintainer: Yudong Chen <yudong.chen@statslab.cam.ac.uk>
 Imports: stats, utils
-Description: Provides an online algorithm for detecting sudden mean changes in a sequence of high-dimensional observations. 
+Description: Implements the algorithm in Chen, Wang and Samworth (2020) <arxiv:2003.03668> for online detection of sudden mean changes in a sequence of high-dimensional observations. It also implements methods by Mei (2010) <doi:10.1093/biomet/asq010>, Xie and Siegmund (2013) <doi:10.1214/13-AOS1094> and Chan (2017) <doi:10.1214/17-AOS1546>.
 License: GPL-3
 RoxygenNote: 6.1.1
