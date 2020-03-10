@@ -29,8 +29,8 @@
 #' print(detector)
 #'
 #' detector <- setStatus(detector, 'monitoring')
-#' for (i in 1:500){
-#'   x_new <- rnorm(p, old_mean * (i < 250) + new_mean * (i>=250))
+#' for (i in 1:200){
+#'   x_new <- rnorm(p, old_mean * (i < 100) + new_mean * (i>=100))
 #'   detector <- getData(detector, x_new)
 #' }
 #' print(detector)
@@ -47,8 +47,8 @@
 #' detector %>% print
 #'
 #' detector %<>% setStatus('monitoring')
-#' for (i in 1:500){
-#'   x_new <- rnorm(p, old_mean * (i < 250) + new_mean * (i>=250))
+#' for (i in 1:200){
+#'   x_new <- rnorm(p, old_mean * (i < 100) + new_mean * (i>=100))
 #'   detector %<>% getData(x_new)
 #' }
 #' detector %>% print

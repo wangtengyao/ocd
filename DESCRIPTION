@@ -1,6 +1,6 @@
 Package: ocd
 Type: Package
-Title: High-dimensional multiscale online changepoint detection
+Title: High-dimensional Multiscale Online Changepoint Detection
 Version: 1.0
 Date: 2020-03-06
 Author: Yudong Chen, Tengyao Wang, Richard J. Samworth
