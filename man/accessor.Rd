@@ -4,7 +4,7 @@
 \alias{accessor}
 \alias{data_dim}
 \alias{ocdMethod}
-\alias{nobs}
+\alias{n_obs}
 \alias{patience}
 \alias{param}
 \alias{thresholds}
@@ -18,7 +18,7 @@ data_dim(detector)
 
 ocdMethod(detector)
 
-nobs(detector)
+n_obs(detector)
 
 patience(detector)
 

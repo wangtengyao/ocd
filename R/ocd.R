@@ -52,7 +52,7 @@
 #' \code{lambda} for method \code{Chan}.
 #' \item threshold - a named vector of thresholds used for detection (see the
 #' \code{thresh} argument)
-#' \item nobs - number of observations, initialised to 0
+#' \item n_obs - number of observations, initialised to 0
 #' \item baseline_mean - vector of pre-change mean, initialised to a vector of 0,
 #' can be estimated by setting the changepoint detector into baseline mean estimating
 #' status, see \code{\link{setStatus}}, or set directly using
@@ -154,7 +154,7 @@ new_OCD <- function(dim, thresh, beta, sparsity){
                         method = 'ocd',
                         param = list(beta=beta, sparsity=sparsity),
                         thresholds = thresh,
-                        nobs = 0,                          # mutable quantities
+                        n_obs = 0,                          # mutable quantities
                         baseline_mean = rep(0,dim),
                         tracked = list(A=A, tail=tail),
                         statistics = stats,
@@ -187,7 +187,7 @@ new_Mei <- function(dim, thresh, b){
                         method = 'Mei',
                         param = list(b=b),
                         thresholds = thresh,
-                        nobs = 0,
+                        n_obs = 0,
                         baseline_mean = rep(0, dim),
                         tracked = list(R=R),
                         statistics = stats,
@@ -222,7 +222,7 @@ new_XS <- function(dim, thresh, p0, w){
                         method = 'XS',
                         param = list(p0=p0, w=w),
                         thresholds = thresh,
-                        nobs = 0,
+                        n_obs = 0,
                         baseline_mean = rep(0, dim),
                         tracked = list(X_recent=X_recent, CUSUM=CUSUM),
                         statistics = stats,
@@ -259,7 +259,7 @@ new_Chan <- function(dim, thresh, p0, w, lambda){
                         method = 'Chan',
                         param = list(p0=p0, w=w, lambda=lambda),
                         thresholds = thresh,
-                        nobs = 0,
+                        n_obs = 0,
                         baseline_mean = rep(0, dim),
                         tracked = list(X_recent=X_recent, CUSUM=CUSUM),
                         statistics = stats,
@@ -286,7 +286,7 @@ ocdMethod <- function(detector) attr(detector, 'method')
 
 #' @rdname accessor
 #' @export
-nobs <- function(detector) attr(detector, 'nobs')
+n_obs <- function(detector) attr(detector, 'n_obs')
 
 #' @rdname accessor
 #' @export
@@ -335,7 +335,7 @@ reset.OCD <- function(detector){
   if (param(detector)$sparsity=='sparse') stats <- stats[-2]
   if (param(detector)$sparsity=='dense') stats <- stats[-3]
 
-  attr(detector, 'nobs') <- 0
+  attr(detector, 'n_obs') <- 0
   attr(detector, 'baseline_mean') <- rep(0,p)
   attr(detector, 'tracked') <- list(A=A, tail=tail)
   attr(detector, 'statistics') <- stats
@@ -350,7 +350,7 @@ reset.Mei <- function(detector){
   R <- matrix(0, p, 2)
   stats <- setNames(c(0,0), c('max','sum'))
 
-  attr(detector, 'nobs') <- 0
+  attr(detector, 'n_obs') <- 0
   attr(detector, 'baseline_mean') <- rep(0,p)
   attr(detector, 'tracked') <- list(R=R)
   attr(detector, 'statistics') <- stats
@@ -367,7 +367,7 @@ reset.XS <- function(detector){
   CUSUM <- matrix(0, p, w)
   stats <- 0
 
-  attr(detector, 'nobs') <- 0
+  attr(detector, 'n_obs') <- 0
   attr(detector, 'baseline_mean') <- rep(0,p)
   attr(detector, 'tracked') <- list(X_recent=X_recent, CUSUM=CUSUM)
   attr(detector, 'statistics') <- stats
@@ -384,7 +384,7 @@ reset.Chan <- function(detector){
   CUSUM <- matrix(0, p, w)
   stats <- 0
 
-  attr(detector, 'nobs') <- 0
+  attr(detector, 'n_obs') <- 0
   attr(detector, 'baseline_mean') <- rep(0,p)
   attr(detector, 'tracked') <- list(X_recent=X_recent, CUSUM=CUSUM)
   attr(detector, 'statistics') <- stats
@@ -418,7 +418,7 @@ setStatus <- function(detector, new_status){
   if (new_status=='estimating'){
     detector <- setBaselineMean(detector, rep(0, data_dim(detector)))
   } else if (new_status=='monitoring'){
-    attr(detector, 'nobs') <- 0   # reset observation counter for detection
+    attr(detector, 'n_obs') <- 0   # reset observation counter for detection
   }
   return(detector)
 }
@@ -443,7 +443,7 @@ normalisedStatistics <- function(detector) {
 #' @export
 checkChange <- function(detector){
   if (normalisedStatistics(detector) >= 1){
-    n <- nobs(detector)
+    n <- n_obs(detector)
     attr(detector, 'status') <- setNames(n, 'declared at')
     cat('Changepoint declared at time =', n, '\n')
   }
@@ -470,9 +470,9 @@ getData <- function(detector, x_new) UseMethod('getData')
 #' @describeIn getData Process a new data for subclass 'OCD'
 #' @export
 getData.OCD <- function(detector, x_new){
-  attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
+  attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    new_mean <- (x_new + baselineMean(detector) * (nobs(detector) - 1)) / nobs(detector)
+    new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
     detector <- setBaselineMean(detector, new_mean)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); A <- tmp$A; tail <- tmp$tail
@@ -488,9 +488,9 @@ getData.OCD <- function(detector, x_new){
 #' @describeIn getData Process a new data for subclass 'Mei'
 #' @export
 getData.Mei <- function(detector, x_new){
-  attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
+  attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    new_mean <- (x_new + baselineMean(detector) * (nobs(detector) - 1)) / nobs(detector)
+    new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
     detector <- setBaselineMean(detector, new_mean)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); R <- tmp$R
@@ -506,9 +506,9 @@ getData.Mei <- function(detector, x_new){
 #' @describeIn getData Process a new data for subclass 'XS'
 #' @export
 getData.XS <- function(detector, x_new){
-  attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
+  attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    new_mean <- (x_new + baselineMean(detector) * (nobs(detector) - 1)) / nobs(detector)
+    new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
     detector <- setBaselineMean(detector, new_mean)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); X_recent <- tmp$X_recent; CUSUM <- tmp$CUSUM
@@ -524,9 +524,9 @@ getData.XS <- function(detector, x_new){
 #' @describeIn getData Process a new data for subclass 'Chan'
 #' @export
 getData.Chan <- function(detector, x_new){
-  attr(detector, 'nobs') <- attr(detector, 'nobs') + 1
+  attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    new_mean <- (x_new + baselineMean(detector) * (nobs(detector) - 1)) / nobs(detector)
+    new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
     detector <- setBaselineMean(detector, new_mean)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); X_recent <- tmp$X_recent; CUSUM <- tmp$CUSUM
@@ -547,7 +547,7 @@ getData.Chan <- function(detector, x_new){
 print.ChangepointDetector <- function(x, ...){
   detector <- x
   cat('Online changepoint detector using method:', ocdMethod(detector), '\n\n')
-  cat('Time =', nobs(detector), '\n\n')
+  cat('Time =', n_obs(detector), '\n\n')
   baseline_mean <- round(baselineMean(detector), 3)
   if (data_dim(detector) <= 10){
     cat('Baseline mean =', baseline_mean, '\n\n')

@@ -74,7 +74,7 @@ and \code{sparsity} for method \code{ocd}; \code{b} for method \code{Mei};
 \code{lambda} for method \code{Chan}.
 \item threshold - a named vector of thresholds used for detection (see the
 \code{thresh} argument)
-\item nobs - number of observations, initialised to 0
+\item n_obs - number of observations, initialised to 0
 \item baseline_mean - vector of pre-change mean, initialised to a vector of 0,
 can be estimated by setting the changepoint detector into baseline mean estimating
 status, see \code{\link{setStatus}}, or set directly using
