@@ -28,3 +28,7 @@ construction.
 \examples{
 detector <- new_Mei(dim=100, thresh=c(8.6, 125.1), b=0.1)
 }
+\references{
+Mei, Y. (2010) Efficient scalable schemes for monitoring a large number
+of data streams. \emph{Biometrika}, \strong{97}, 419--433.
+}

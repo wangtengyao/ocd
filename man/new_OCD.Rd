@@ -35,3 +35,7 @@ construction.
 \examples{
 detector <- new_OCD(dim=100, thresh=c(11.6, 179.5, 54.9), beta=1, sparsity='auto')
 }
+\references{
+Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional multiscale
+online changepoint detection \emph{Preprint}. arxiv:2003.03668.
+}

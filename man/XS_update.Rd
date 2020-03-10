@@ -29,3 +29,7 @@ a list of
 This function implements the \code{\link{getData}} function to
 perform the online changepoint detection for the 'XS' class.
 }
+\references{
+Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point
+detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
+}

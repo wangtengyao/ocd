@@ -30,3 +30,7 @@ construction.
 \examples{
 detector <- new_XS(dim=100, thresh=55.1, p0=0.1, w=200)
 }
+\references{
+Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point
+detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
+}

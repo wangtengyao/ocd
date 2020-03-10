@@ -16,6 +16,9 @@
 #' \item A: the updated A matrix
 #' \item tail: the updated tail matrix
 #' }
+#' @references
+#' Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional multiscale
+#' online changepoint detection \emph{Preprint}. arxiv:2003.03668.
 #' @export
 ocd_update <- function(x_new, A, tail, beta, sparsity){
   p <- length(x_new)   # dimension of data
@@ -61,7 +64,7 @@ ocd_update <- function(x_new, A, tail, beta, sparsity){
   S_dense <- max(colsum_dense)
   S_sparse <- max(colsum_sparse)
 
-  stat <- setNames(c(S_diag, S_dense, S_sparse), c('diag', 'dense', 'sparse'))
+  stat <- setNames(c(S_diag, S_dense, S_sparse), c('diag', 'off_d', 'off_s'))
   if (sparsity=='dense') stat <- stat[-3]
   if (sparsity=='sparse') stat <- stat[-2]
 
@@ -80,6 +83,9 @@ ocd_update <- function(x_new, A, tail, beta, sparsity){
 #' \item stat: a vector of 2 test statistics for the 'Mei' class.
 #' \item R: the updated R vector
 #' }
+#' @references
+#' Mei, Y. (2010) Efficient scalable schemes for monitoring a large number
+#' of data streams. \emph{Biometrika}, \strong{97}, 419--433.
 #' @export
 Mei_update <- function(x_new, R, b){
   R <- R + b * cbind(x_new, -x_new) - b^2/2  # update tail loglik ratio stats
@@ -105,6 +111,9 @@ Mei_update <- function(x_new, R, b){
 #' \item X_recent: the updated X_recent matrix
 #' \item CUSUM: the updated CUSUM matrix
 #' }
+#' @references
+#' Chan, H. P. (2017) Optimal sequential detection in multi-stream data.
+#' \emph{Ann. Statist.}, \strong{45}, 2736--2763.
 #' @export
 Chan_update <- function(x_new, X_recent, CUSUM, p0, w, lambda){
   CUSUM <- CUSUM + x_new - X_recent # update tail partial sums of length 1..w
@@ -130,6 +139,9 @@ Chan_update <- function(x_new, X_recent, CUSUM, p0, w, lambda){
 #' \item X_recent: the updated X_recent matrix
 #' \item CUSUM: the updated CUSUM matrix
 #' }
+#' @references
+#' Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point
+#' detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
 #' @export
 XS_update <- function(x_new, X_recent, CUSUM, p0, w){
   CUSUM <- CUSUM + x_new - X_recent # update tail partial sums of length 1..w
@@ -230,7 +242,7 @@ MC_XS <- function(dim, patience, p0, w, MC_reps){
       x_new <- rnorm(dim)
       ret <- XS_update(x_new, X_recent, CUSUM, p0, w)
       X_recent <- ret$X_recent; CUSUM <- ret$CUSUM
-      peak_stat[rep,] <- pmax(peak_stat[rep,], ret$stat)
+      peak_stat[rep] <- pmax(peak_stat[rep], ret$stat)
     }
   }
 
@@ -244,7 +256,7 @@ MC_XS <- function(dim, patience, p0, w, MC_reps){
 #' @param patience Nominal patience of the procedure
 #' @param p0 Assumed fraction of nonzero coordinates of change.
 #' @param w Window size
-#' @param lambda Tuning parameter for Chan (2017) mmethod
+#' @param lambda Tuning parameter for Chan (2017) method
 #' @param MC_reps number of Monte Carlo repetitions to use
 #' @return A numeric vector of computed thresholds.
 #' @export
@@ -259,7 +271,7 @@ MC_Chan <- function(dim, patience, p0, w, lambda, MC_reps){
       x_new <- rnorm(dim)
       ret <- Chan_update(x_new, X_recent, CUSUM, p0, w, lambda)
       X_recent <- ret$X_recent; CUSUM <- ret$CUSUM
-      peak_stat[rep,] <- pmax(peak_stat[rep,], ret$stat)
+      peak_stat[rep] <- pmax(peak_stat[rep], ret$stat)
     }
   }
 

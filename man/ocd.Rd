@@ -54,7 +54,7 @@ detector \%>\% print
 }
 \references{
 Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional
-multiscale online changepoint detection \emph{Preprint}.
+multiscale online changepoint detection \emph{Preprint}. arxiv:2003.03668.
 }
 \seealso{
 \code{\link{ChangepointDetector}} for detailed usage.

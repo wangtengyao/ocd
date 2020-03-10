@@ -33,3 +33,7 @@ a list of
 This function implements the \code{\link{getData}} function to
 perform the online changepoint detection for the 'OCD' class.
 }
+\references{
+Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional multiscale
+online changepoint detection \emph{Preprint}. arxiv:2003.03668.
+}

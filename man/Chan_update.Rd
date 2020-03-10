@@ -31,3 +31,7 @@ a list of
 This function implements the \code{\link{getData}} function to
 perform the online changepoint detection for the 'Chan' class.
 }
+\references{
+Chan, H. P. (2017) Optimal sequential detection in multi-stream data.
+\emph{Ann. Statist.}, \strong{45}, 2736--2763.
+}

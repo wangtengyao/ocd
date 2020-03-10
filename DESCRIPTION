@@ -4,7 +4,7 @@ Title: High-dimensional multiscale online changepoint detection
 Version: 1.0
 Date: 2020-03-06
 Author: Yudong Chen, Tengyao Wang, Richard J. Samworth
-Maintainer: Yudong Chen <ydchen@statslab.cam.ac.uk>
+Maintainer: Yudong Chen <yudong.chen@statslab.cam.ac.uk>
 Description: Provides an online algorithm for detecting sudden mean changes in a sequence of high-dimensional observations. 
 License: GPL-3
 RoxygenNote: 6.1.1

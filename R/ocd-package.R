@@ -7,13 +7,12 @@
 #'
 #' @seealso \code{\link{ChangepointDetector}} for detailed usage.
 #' @references Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional
-#' multiscale online changepoint detection \emph{Preprint}.
+#' multiscale online changepoint detection \emph{Preprint}. arxiv:2003.03668.
 #'
 #' @docType package
 #' @name ocd
 #' @import stats
 #' @import utils
-#' @import graphics
 #' @examples
 #' set.seed(2020)
 #' p <- 100

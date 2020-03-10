@@ -5,7 +5,7 @@
 \title{Constructor for the ChangepointDetector S3 class}
 \usage{
 ChangepointDetector(dim, method = c("ocd", "Mei", "XS", "Chan"), thresh,
-  patience = 10000, MC_reps = 100, beta = 1, sparsity = "auto",
+  patience = 5000, MC_reps = 100, beta = 1, sparsity = "auto",
   b = beta/sqrt(dim), p0 = 1/sqrt(dim), w = 200, lambda = sqrt(8) -
   2)
 }
@@ -82,20 +82,19 @@ status, see \code{\link{setStatus}}, or set directly using
 \item tracked -  a list of information tracked online by the changepoint
 detector: matrices \code{A}
 and \code{tail} for method \code{ocd}; vector \code{R} for method \code{Mei};
-matrices \code{X_recent} and \code{CUSUM} for methods \code{XS}and \code{Chan}.
+matrices \code{X_recent} and \code{CUSUM} for methods \code{XS} and \code{Chan}.
 \item statistics - a named vector of test statistics for changepoint
 detection: statistics with names \code{diag}, \code{off_d} and \code{off_s}
 for method \code{ocd} (note if \code{sparsity} is \code{'dense'} or
 \code{'sparse'}, then only (S^{diag}, S^{off,d})
 and (S^{diag}, S^{off,s}) are included in \code{stat} respectively.);
 statistics with names \code{max} and \code{sum} for
-method \code{Mei}; a single numeric value for  methods \code{XS}and \code{Chan}.
+method \code{Mei}; a single numeric value for  methods \code{XS} and \code{Chan}.
 \item status - one of the following: 'estimating' (the detector is estimating
 the baseline mean with new data points), 'monitoring' (the detector is
 detecting changes from the baseline mean from new data points) and an integer
 recording the time of declaration of changepoint.
 }
-\code{method='Mei'}, \code{method='XS'}, \code{method='Chan'}.
 }
 \description{
 Constructor for the ChangepointDetector S3 class
@@ -116,11 +115,13 @@ detector_Chan <- ChangepointDetector(dim=100, method='Chan', thresh=8.7)
 \references{
 \itemize{
 \item Chen, Y., Wang, T. and Samworth, R. J. (2020) High-dimensional
-multiscale online changepoint detection \emph{Preprint}.
+multiscale online changepoint detection \emph{Preprint}. arxiv:2003.03668.
 \item Mei, Y. (2010) Efficient scalable schemes for monitoring a large number
 of data streams. \emph{Biometrika}, \strong{97}, 419--433.
-\item Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
-\item Chan, H. P. (2017) Optimal sequential detection in multi-stream data. \emph{Ann. Statist.}, \strong{45}, 2736--2763.
+\item Xie, Y. and Siegmund, D. (2013) Sequential multi-sensor change-point
+detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
+\item Chan, H. P. (2017) Optimal sequential detection in multi-stream data.
+\emph{Ann. Statist.}, \strong{45}, 2736--2763.
 }
 }
 \seealso{

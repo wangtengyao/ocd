@@ -15,7 +15,7 @@ MC_Chan(dim, patience, p0, w, lambda, MC_reps)
 
 \item{w}{Window size}
 
-\item{lambda}{Tuning parameter for Chan (2017) mmethod}
+\item{lambda}{Tuning parameter for Chan (2017) method}
 
 \item{MC_reps}{number of Monte Carlo repetitions to use}
 }

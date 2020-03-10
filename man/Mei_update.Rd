@@ -25,3 +25,7 @@ a list of
 This function implements the \code{\link{getData}} function to
 perform the online changepoint detection for the 'Mei' class.
 }
+\references{
+Mei, Y. (2010) Efficient scalable schemes for monitoring a large number
+of data streams. \emph{Biometrika}, \strong{97}, 419--433.
+}

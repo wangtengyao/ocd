@@ -33,3 +33,7 @@ construction.
 \examples{
 detector <- new_Chan(dim=100, thresh=8.7, p0=0.1, w=200, lambda=sqrt(8)-2)
 }
+\references{
+Chan, H. P. (2017) Optimal sequential detection in multi-stream data.
+\emph{Ann. Statist.}, \strong{45}, 2736--2763.
+}
