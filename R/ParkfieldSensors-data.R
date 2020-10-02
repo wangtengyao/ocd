@@ -7,7 +7,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(ParkfieldSensor)
+#' @usage data(ParkfieldSensors)
 #'
 #' @format A matrix with 39 columns and 14998 rows, with each column
 #' corresponding to a sensor and each row corresponding to a time
@@ -17,4 +17,4 @@
 #'
 #' @source HRSN (2014), High Resolution Seismic Network.
 #' UC Berkeley Seismological Laboratory. Dataset. doi:10.7932/HRSN.
-"ParkfieldSensor"
+"ParkfieldSensors"
