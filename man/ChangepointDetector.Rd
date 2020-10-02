@@ -4,19 +4,10 @@
 \alias{ChangepointDetector}
 \title{Constructor for the ChangepointDetector S3 class}
 \usage{
-ChangepointDetector(
-  dim,
-  method = c("ocd", "Mei", "XS", "Chan"),
-  thresh,
-  patience = 5000,
-  MC_reps = 100,
-  beta = 1,
-  sparsity = "auto",
-  b = beta/sqrt(dim),
-  p0 = 1/sqrt(dim),
-  w = 200,
-  lambda = sqrt(8) - 2
-)
+ChangepointDetector(dim, method = c("ocd", "Mei", "XS", "Chan"), thresh,
+  patience = 5000, MC_reps = 100, beta = 1, sparsity = "auto",
+  b = beta/sqrt(dim), p0 = 1/sqrt(dim), w = 200, lambda = sqrt(8) -
+  2)
 }
 \arguments{
 \item{dim}{Data dimension, all new data must be of this dimension}

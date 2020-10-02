@@ -3,6 +3,7 @@
 \docType{package}
 \name{ocd}
 \alias{ocd}
+\alias{ocd-package}
 \title{ocd: A package for high-dimensional multiscale online changepoint detection}
 \description{
 The ocd package provides the S3 class \code{\link{ChangepointDetector}} that
