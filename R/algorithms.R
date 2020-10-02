@@ -60,7 +60,7 @@ ocd_update <- function(x_new, A, tail, beta, sparsity){
     colsum_sparse[i] <- colsum_sparse[i] - min(G0[rowSums(tail == unique_tail_new[i]) > 0, i])
   }
 
-  S_diag <- max(R)
+  S_diag <- max(R, 0)
   S_dense <- max(colsum_dense)
   S_sparse <- max(colsum_sparse)
 
