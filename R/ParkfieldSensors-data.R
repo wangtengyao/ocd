@@ -18,8 +18,7 @@
 #'
 #' @source HRSN (2014), High Resolution Seismic Network.
 #' UC Berkeley Seismological Laboratory. Dataset. doi:10.7932/HRSN.
-"ParkfieldSensors"
-
+#'
 #' @examples
 #' data(ParkfieldSensors)
 #' head(ParkfieldSensors)
@@ -72,3 +71,4 @@
 #'   cat('Change detected', time_declared, 'seconds after 2am.\n')
 #' }
 #' }
+"ParkfieldSensors"
