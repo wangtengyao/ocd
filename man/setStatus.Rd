@@ -19,7 +19,7 @@ Set changepoint detector status
 }
 \details{
 If the status is set to 'estimating', new observations are used to
-update current estimate of pre-change mean and standard deviation. If the 
-status is set to 'monitoring', new observations are used to check if mean 
+update current estimate of pre-change mean and standard deviation. If the
+status is set to 'monitoring', new observations are used to check if mean
 change has occurred.
 }

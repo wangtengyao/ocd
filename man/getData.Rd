@@ -32,8 +32,8 @@ This is the main function for the 'ChangepointDetector' class.
 }
 \details{
 If the status of the \code{detector} object is 'estimating', the new
-data point is used to update the current estimate of pre-change mean and 
-standard deviation. If the status of the \code{detector} object is monitoring', 
+data point is used to update the current estimate of pre-change mean and
+standard deviation. If the status of the \code{detector} object is monitoring',
 the new data point is used to detect if a mean change has occurred.
 }
 \section{Methods (by class)}{
@@ -49,6 +49,6 @@ the new data point is used to detect if a mean change has occurred.
 
 \seealso{
 \code{\link{setBaselineMean}} for updating the pre-change mean
-estimate, \code{\link{setBaselineSD}} for updating the standard deviation 
+estimate, \code{\link{setBaselineSD}} for updating the standard deviation
 estimate, \code{\link{checkChange}} for checking for change.
 }

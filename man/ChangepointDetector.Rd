@@ -76,12 +76,12 @@ and \code{sparsity} for method \code{ocd}; \code{b} for method \code{Mei};
 \code{thresh} argument)
 \item n_obs - number of observations, initialised to 0
 \item baseline_mean - vector of pre-change mean, initialised to a vector of 0,
-can be estimated by setting the changepoint detector into baseline mean and 
-standard deviation estimating status, see \code{\link{setStatus}}, or set 
+can be estimated by setting the changepoint detector into baseline mean and
+standard deviation estimating status, see \code{\link{setStatus}}, or set
 directly using \code{\link{setBaselineMean}}.
-\item baseline_sd - vector of standard deviation, initialised to a vector of 1, 
-can be estimated by setting the changepoint detector into baseline mean and 
-standard deviation estimating status, see \code{\link{setStatus}}, or set 
+\item baseline_sd - vector of standard deviation, initialised to a vector of 1,
+can be estimated by setting the changepoint detector into baseline mean and
+standard deviation estimating status, see \code{\link{setStatus}}, or set
 directly using \code{\link{setBaselineSD}}.
 \item tracked -  a list of information tracked online by the changepoint
 detector: matrices \code{A}
@@ -95,8 +95,8 @@ and (S^{diag}, S^{off,s}) are included in \code{stat} respectively.);
 statistics with names \code{max} and \code{sum} for
 method \code{Mei}; a single numeric value for  methods \code{XS} and \code{Chan}.
 \item status - one of the following: 'estimating' (the detector is estimating
-the baseline mean and standard deviation with new data points), 'monitoring' 
-(the detector is detecting changes from the baseline mean from new data points) 
+the baseline mean and standard deviation with new data points), 'monitoring'
+(the detector is detecting changes from the baseline mean from new data points)
 and an integer recording the time of declaration of changepoint.
 }
 }
@@ -132,7 +132,7 @@ detection.  \emph{Ann. Statist.}, \strong{41}, 670--692.
 accessor functions such as \code{\link{data_dim}}, the main function
 for processing a new data point \code{\link{getData}}, other methods for the
 ChangepointDetector class including \code{\link{reset}},
-\code{\link{setBaselineMean}}, \code{\link{setBaselineSD}}, 
-\code{\link{setStatus}}, \code{\link{normalisedStatistics}} and 
+\code{\link{setBaselineMean}}, \code{\link{setBaselineSD}},
+\code{\link{setStatus}}, \code{\link{normalisedStatistics}} and
 \code{\link{checkChange}}.
 }

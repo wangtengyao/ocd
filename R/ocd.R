@@ -54,12 +54,12 @@
 #' \code{thresh} argument)
 #' \item n_obs - number of observations, initialised to 0
 #' \item baseline_mean - vector of pre-change mean, initialised to a vector of 0,
-#' can be estimated by setting the changepoint detector into baseline mean and 
-#' standard deviation estimating status, see \code{\link{setStatus}}, or set 
+#' can be estimated by setting the changepoint detector into baseline mean and
+#' standard deviation estimating status, see \code{\link{setStatus}}, or set
 #' directly using \code{\link{setBaselineMean}}.
-#' \item baseline_sd - vector of standard deviation, initialised to a vector of 1, 
-#' can be estimated by setting the changepoint detector into baseline mean and 
-#' standard deviation estimating status, see \code{\link{setStatus}}, or set 
+#' \item baseline_sd - vector of standard deviation, initialised to a vector of 1,
+#' can be estimated by setting the changepoint detector into baseline mean and
+#' standard deviation estimating status, see \code{\link{setStatus}}, or set
 #' directly using \code{\link{setBaselineSD}}.
 #' \item tracked -  a list of information tracked online by the changepoint
 #' detector: matrices \code{A}
@@ -73,8 +73,8 @@
 #' statistics with names \code{max} and \code{sum} for
 #' method \code{Mei}; a single numeric value for  methods \code{XS} and \code{Chan}.
 #' \item status - one of the following: 'estimating' (the detector is estimating
-#' the baseline mean and standard deviation with new data points), 'monitoring' 
-#' (the detector is detecting changes from the baseline mean from new data points) 
+#' the baseline mean and standard deviation with new data points), 'monitoring'
+#' (the detector is detecting changes from the baseline mean from new data points)
 #' and an integer recording the time of declaration of changepoint.
 #' }
 #' @details This function is a wrapper. The \code{\link{new_OCD}},
@@ -83,8 +83,8 @@
 #' @seealso accessor functions such as \code{\link{data_dim}}, the main function
 #' for processing a new data point \code{\link{getData}}, other methods for the
 #' ChangepointDetector class including \code{\link{reset}},
-#' \code{\link{setBaselineMean}}, \code{\link{setBaselineSD}}, 
-#' \code{\link{setStatus}}, \code{\link{normalisedStatistics}} and 
+#' \code{\link{setBaselineMean}}, \code{\link{setBaselineSD}},
+#' \code{\link{setStatus}}, \code{\link{normalisedStatistics}} and
 #' \code{\link{checkChange}}.
 #' @examples
 #' detector_ocd <- ChangepointDetector(dim=100, method='ocd',
@@ -161,7 +161,7 @@ new_OCD <- function(dim, thresh, beta, sparsity){
                         thresholds = thresh,
                         n_obs = 0,                          # mutable quantities
                         baseline_mean = rep(0,dim),
-                        baseline_sd = rep(1,dim),
+                        baseline_sd = rep(1, dim),
                         tracked = list(A=A, tail=tail),
                         statistics = stats,
                         status = 'monitoring')
@@ -195,7 +195,7 @@ new_Mei <- function(dim, thresh, b){
                         thresholds = thresh,
                         n_obs = 0,
                         baseline_mean = rep(0, dim),
-                        baseline_sd = rep(1,dim),
+                        baseline_sd = rep(1, dim),
                         tracked = list(R=R),
                         statistics = stats,
                         status = 'monitoring')
@@ -231,7 +231,7 @@ new_XS <- function(dim, thresh, p0, w){
                         thresholds = thresh,
                         n_obs = 0,
                         baseline_mean = rep(0, dim),
-                        baseline_sd = rep(1,dim),
+                        baseline_sd = rep(1, dim),
                         tracked = list(X_recent=X_recent, CUSUM=CUSUM),
                         statistics = stats,
                         status = 'monitoring')
@@ -269,7 +269,7 @@ new_Chan <- function(dim, thresh, p0, w, lambda){
                         thresholds = thresh,
                         n_obs = 0,
                         baseline_mean = rep(0, dim),
-                        baseline_sd = rep(1,dim),
+                        baseline_sd = rep(1, dim),
                         tracked = list(X_recent=X_recent, CUSUM=CUSUM),
                         statistics = stats,
                         status = 'monitoring')
@@ -349,8 +349,8 @@ reset.OCD <- function(detector){
   if (param(detector)$sparsity=='dense') stats <- stats[-3]
 
   attr(detector, 'n_obs') <- 0
-  attr(detector, 'baseline_mean') <- rep(0,p)
-  attr(detector, 'baseline_sd') <- rep(1,p)
+  attr(detector, 'baseline_mean') <- rep(0, p)
+  attr(detector, 'baseline_sd') <- rep(1, p)
   attr(detector, 'tracked') <- list(A=A, tail=tail)
   attr(detector, 'statistics') <- stats
   attr(detector, 'status') <- 'monitoring'
@@ -365,8 +365,8 @@ reset.Mei <- function(detector){
   stats <- setNames(c(0,0), c('max','sum'))
 
   attr(detector, 'n_obs') <- 0
-  attr(detector, 'baseline_mean') <- rep(0,p)
-  attr(detector, 'baseline_sd') <- rep(1,p)
+  attr(detector, 'baseline_mean') <- rep(0, p)
+  attr(detector, 'baseline_sd') <- rep(1, p)
   attr(detector, 'tracked') <- list(R=R)
   attr(detector, 'statistics') <- stats
   attr(detector, 'status') <- 'monitoring'
@@ -383,8 +383,8 @@ reset.XS <- function(detector){
   stats <- 0
 
   attr(detector, 'n_obs') <- 0
-  attr(detector, 'baseline_mean') <- rep(0,p)
-  attr(detector, 'baseline_sd') <- rep(1,p)
+  attr(detector, 'baseline_mean') <- rep(0, p)
+  attr(detector, 'baseline_sd') <- rep(1, p)
   attr(detector, 'tracked') <- list(X_recent=X_recent, CUSUM=CUSUM)
   attr(detector, 'statistics') <- stats
   attr(detector, 'status') <- 'monitoring'
@@ -401,8 +401,8 @@ reset.Chan <- function(detector){
   stats <- 0
 
   attr(detector, 'n_obs') <- 0
-  attr(detector, 'baseline_mean') <- rep(0,p)
-  attr(detector, 'baseline_sd') <- rep(1,p)
+  attr(detector, 'baseline_mean') <- rep(0, p)
+  attr(detector, 'baseline_sd') <- rep(1, p)
   attr(detector, 'tracked') <- list(X_recent=X_recent, CUSUM=CUSUM)
   attr(detector, 'statistics') <- stats
   attr(detector, 'status') <- 'monitoring'
@@ -437,8 +437,8 @@ setBaselineSD <- function(detector, sd){
 #' @param new_status 'estimating' or 'monitoring'
 #' @return Updated object \code{detector}
 #' @details If the status is set to 'estimating', new observations are used to
-#' update current estimate of pre-change mean and standard deviation. If the 
-#' status is set to 'monitoring', new observations are used to check if mean 
+#' update current estimate of pre-change mean and standard deviation. If the
+#' status is set to 'monitoring', new observations are used to check if mean
 #' change has occurred.
 #' @export
 setStatus <- function(detector, new_status){
@@ -479,6 +479,25 @@ checkChange <- function(detector){
   return(detector)
 }
 
+#' compute new mean and sd from old ones with one additional observation
+#' @param old_mean vector of old means
+#' @param old_sd vector of old standard deviation
+#' @param x_new new observation vector
+#' @param n_obs total number of observations (including x_new)
+#' @return list of two vectors: new mean and new standard deviation
+update_param <- function(old_mean, old_sd, x_new, n_obs){
+  new_mean <- (old_mean * (n_obs - 1) + x_new) / n_obs
+  if (n_obs == 1) {
+    new_sd <- rep(1, length(old_sd))
+  } else if (n_obs == 2) {
+    new_sd <- apply(rbind(old_mean, x_new), 2, sd)
+  } else {
+    new_sd <- sqrt(((n_obs - 2) * old_sd^2 + (n_obs - 1) * old_mean^2 +
+                      x_new^2 - n_obs * new_mean^2) / (n_obs - 1))
+  }
+  return(list(mean=new_mean, sd=new_sd))
+}
+
 
 #' Processing a new data point
 #' @description This is the main function for the 'ChangepointDetector' class.
@@ -487,11 +506,11 @@ checkChange <- function(detector){
 #' specified in the data_dim attribute of \code{detector}.
 #' @return Updated object \code{detector}
 #' @details If the status of the \code{detector} object is 'estimating', the new
-#' data point is used to update the current estimate of pre-change mean and 
-#' standard deviation. If the status of the \code{detector} object is monitoring', 
+#' data point is used to update the current estimate of pre-change mean and
+#' standard deviation. If the status of the \code{detector} object is monitoring',
 #' the new data point is used to detect if a mean change has occurred.
 #' @seealso \code{\link{setBaselineMean}} for updating the pre-change mean
-#' estimate, \code{\link{setBaselineSD}} for updating the standard deviation 
+#' estimate, \code{\link{setBaselineSD}} for updating the standard deviation
 #' estimate, \code{\link{checkChange}} for checking for change.
 #' @export
 getData <- function(detector, x_new) UseMethod('getData')
@@ -502,16 +521,10 @@ getData <- function(detector, x_new) UseMethod('getData')
 getData.OCD <- function(detector, x_new){
   attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean and standard deviation estimates
-    if (n_obs(detector) == 1){
-      new_mean <- x_new
-      new_sd <- 0
-    } else {
-      new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
-      new_sd <- sqrt(((n_obs(detector) - 2) * baselineSD(detector)^2 + (n_obs(detector) - 1) * baselineMean(detector)^2 + 
-                        x_new^2 - n_obs(detector) * new_mean^2) / (n_obs(detector) - 1))
-    }
-    detector <- setBaselineMean(detector, new_mean)
-    detector <- setBaselineSD(detector, new_sd)
+    tmp <- update_param(baselineMean(detector), baselineSD(detector), x_new,
+                        n_obs(detector))
+    detector <- setBaselineMean(detector, tmp$mean)
+    detector <- setBaselineSD(detector, tmp$sd)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); A <- tmp$A; tail <- tmp$tail
     tmp <- param(detector); beta <- tmp$beta; sparsity <- tmp$sparsity
@@ -528,16 +541,10 @@ getData.OCD <- function(detector, x_new){
 getData.Mei <- function(detector, x_new){
   attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    if (n_obs(detector) == 1){
-      new_mean <- x_new
-      new_sd <- 0
-    } else {
-      new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
-      new_sd <- sqrt(((n_obs(detector) - 2) * baselineSD(detector) + (n_obs(detector) - 1) * baselineMean(detector)^2 + 
-                        x_new^2 - n_obs(detector) * new_mean^2) / (n_obs(detector) - 1))
-    }
-    detector <- setBaselineMean(detector, new_mean)
-    detector <- setBaselineSD(detector, new_sd)
+    tmp <- update_param(baselineMean(detector), baselineSD(detector), x_new,
+                        n_obs(detector))
+    detector <- setBaselineMean(detector, tmp$mean)
+    detector <- setBaselineSD(detector, tmp$sd)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); R <- tmp$R
     tmp <- param(detector); b <- tmp$b
@@ -554,16 +561,10 @@ getData.Mei <- function(detector, x_new){
 getData.XS <- function(detector, x_new){
   attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    if (n_obs(detector) == 1){
-      new_mean <- x_new
-      new_sd <- 0
-    } else {
-      new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
-      new_sd <- sqrt(((n_obs(detector) - 2) * baselineSD(detector) + (n_obs(detector) - 1) * baselineMean(detector)^2 + 
-                        x_new^2 - n_obs(detector) * new_mean^2) / (n_obs(detector) - 1))
-    }
-    detector <- setBaselineMean(detector, new_mean)
-    detector <- setBaselineSD(detector, new_sd)
+    tmp <- update_param(baselineMean(detector), baselineSD(detector), x_new,
+                        n_obs(detector))
+    detector <- setBaselineMean(detector, tmp$mean)
+    detector <- setBaselineSD(detector, tmp$sd)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); X_recent <- tmp$X_recent; CUSUM <- tmp$CUSUM
     tmp <- param(detector); p0 <- tmp$p0; w <- tmp$w
@@ -580,16 +581,10 @@ getData.XS <- function(detector, x_new){
 getData.Chan <- function(detector, x_new){
   attr(detector, 'n_obs') <- attr(detector, 'n_obs') + 1
   if (status(detector)=='estimating'){  # use the new data to update baseline mean estimate
-    if (n_obs(detector) == 1){
-      new_mean <- x_new
-      new_sd <- rep(0,length(x_new))
-    } else {
-      new_mean <- (x_new + baselineMean(detector) * (n_obs(detector) - 1)) / n_obs(detector)
-      new_sd <- sqrt(((n_obs(detector) - 2) * baselineSD(detector) + (n_obs(detector) - 1) * baselineMean(detector)^2 + 
-                        x_new^2 - n_obs(detector) * new_mean^2) / (n_obs(detector) - 1))
-    }
-    detector <- setBaselineMean(detector, new_mean)
-    detector <- setBaselineSD(detector, new_sd)
+    tmp <- update_param(baselineMean(detector), baselineSD(detector), x_new,
+                        n_obs(detector))
+    detector <- setBaselineMean(detector, tmp$mean)
+    detector <- setBaselineSD(detector, tmp$sd)
   } else { # use the new data to update tracked info and compute test stats
     tmp <- tracked(detector); X_recent <- tmp$X_recent; CUSUM <- tmp$CUSUM
     tmp <- param(detector); p0 <- tmp$p0; w <- tmp$w; lambda <- tmp$lambda
@@ -618,7 +613,7 @@ print.ChangepointDetector <- function(x, ...){
   } else {
     cat('Baseline mean =', head(baseline_mean,8), '...',
     tail(baseline_mean,2), '\n')
-    cat('Standard deviation =', head(baseline_sd,8), '...', 
+    cat('Standard deviation =', head(baseline_sd,8), '...',
     tail(baseline_sd,2), '\n\n')
   }
 
