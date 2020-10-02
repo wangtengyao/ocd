@@ -57,8 +57,11 @@ thresh <- setNames(c(th_diag, th_off_d, th_off_s), c('diag', 'off_d', 'off_s'))
 # initialise ocd detector
 detector <- ChangepointDetector(dim=p, method='ocd', beta=beta, thresh=thresh)
 
-# use training data to standardise series
-test <- t((t(test) - colMeans(train)) / apply(train, 2, sd))
+# use training data to update baseline mean and standard deviation
+detector \%<>\% setStatus('estimating')
+for (i in 1:nrow(train)) {
+  detector \%<>\% getData(train[i, ])  
+}  
 
 # find changepoint in the test data
 detector \%<>\% setStatus('monitoring')

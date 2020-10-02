@@ -9,6 +9,7 @@
 \alias{param}
 \alias{thresholds}
 \alias{baselineMean}
+\alias{baselineSD}
 \alias{tracked}
 \alias{statistics}
 \alias{status}
@@ -27,6 +28,8 @@ param(detector)
 thresholds(detector)
 
 baselineMean(detector)
+
+baselineSD(detector)
 
 tracked(detector)
 
